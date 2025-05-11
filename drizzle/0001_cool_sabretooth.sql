@@ -1,0 +1,1 @@
+ALTER TABLE "files" ALTER COLUMN "parent_id" DROP NOT NULL;
