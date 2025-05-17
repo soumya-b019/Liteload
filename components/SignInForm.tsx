@@ -72,22 +72,22 @@ export default function SignInForm() {
   return (
     <Card className="w-[350px]">
       <CardHeader>
-        <CardTitle>Welcome Back</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-center text-white">Welcome Back</CardTitle>
+        <CardDescription className="text-center text-[var(--muted-foreground)] mt-0.5">
           Sign in to access your secure cloud storage.
         </CardDescription>
       </CardHeader>
 
       <CardContent>
         {authError && (
-          <div className="bg-red-200 text-red-500 p-4 rounded-lg mb-6 flex items-center gap-2">
-            <CircleAlert width={24} height={24} className="bg-red-500" />
+          <div className="bg-red-200 text-red-700 p-2 rounded-lg mb-6 flex items-center gap-2">
+            <CircleAlert width={24} height={24} className="min-w-6 min-h-6" />
             <p>{authError}</p>
           </div>
         )}
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid w-full items-center gap-4">
+          <div className="grid w-full items-center gap-6">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -109,7 +109,7 @@ export default function SignInForm() {
               <Input
                 id="password"
                 type="password"
-                placeholder="*******"
+                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                 {...register("password")}
               />
               {errors?.password && (
@@ -119,7 +119,6 @@ export default function SignInForm() {
               )}
             </div>
 
-            <div className="flex flex-col space-y-1.5"></div>
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Signing in..." : "Sign In"}
             </Button>
@@ -127,10 +126,13 @@ export default function SignInForm() {
         </form>
       </CardContent>
 
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex justify-center items-center">
         <p className="text-sm">
           Don't have an account?{" "}
-          <Link href="/sign-up" className="hover:underline font-medium">
+          <Link
+            href="/sign-up"
+            className="hover:underline font-medium text-[var(--primary)]"
+          >
             Sign up
           </Link>
         </p>

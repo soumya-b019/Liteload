@@ -114,15 +114,17 @@ export default function SignUpForm() {
     return (
       <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle>Verify your email</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-center text-white">
+            Verify your email
+          </CardTitle>
+          <CardDescription className="text-center text-[var(--muted-foreground)] mt-0.5">
             We've sent a verification code on your email.
           </CardDescription>
         </CardHeader>
         <CardContent>
           {verificationError && (
-            <div className="bg-red-200 text-red-500 p-4 rounded-lg mb-6 flex items-center gap-2">
-              <CircleAlert width={24} height={24} className="bg-red-500" />
+            <div className="bg-red-200 text-red-700 p-2 rounded-lg mb-6 flex items-center gap-2">
+              <CircleAlert width={24} height={24} className="min-w-6 min-h-6" />
               <p>{verificationError}</p>
             </div>
           )}
@@ -142,17 +144,17 @@ export default function SignUpForm() {
               </div>
 
               <Button type="submit" variant="default" disabled={isSubmitting}>
-                {isSubmitting ? "verifying..." : "Verify Email"}
+                {isSubmitting ? "Verifying..." : "Verify Email"}
               </Button>
             </div>
           </form>
         </CardContent>
-        <CardFooter className="flex justify-between">
+        <CardFooter className="flex justify-center items-center">
           <p className="text-sm">
             Didn't receive a code?{" "}
             <Button
-              variant="outline"
-              className="hover:underline font-medium"
+              variant="link"
+              className="hover:underline font-medium p-0"
               onClick={async () => {
                 if (signUp) {
                   await signUp.prepareEmailAddressVerification({
@@ -172,21 +174,23 @@ export default function SignUpForm() {
   return (
     <Card className="w-[350px]">
       <CardHeader>
-        <CardTitle>Create your account</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-center text-white">
+          Create your account
+        </CardTitle>
+        <CardDescription className="text-center text-[var(--muted-foreground)] mt-0.5">
           Signup to start managing your files securely.
         </CardDescription>
       </CardHeader>
 
       <CardContent>
         {authError && (
-          <div className="bg-red-200 text-red-500 p-4 rounded-lg mb-6 flex items-center gap-2">
-            <CircleAlert width={24} height={24} className="bg-red-500" />
+          <div className="bg-red-200 text-red-700 p-2 rounded-lg mb-6 flex items-center gap-2">
+            <CircleAlert width={24} height={24} className="min-w-6 min-h-6" />
             <p>{authError}</p>
           </div>
         )}
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid w-full items-center gap-4">
+          <div className="grid w-full items-center gap-6">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -196,7 +200,7 @@ export default function SignUpForm() {
                 {...register("email")}
               />
               {errors?.email && (
-                <p className="text-sm text-red-700 mt-2">
+                <p className="text-[12px] text-red-700 mt-2">
                   {errors?.email?.message}
                 </p>
               )}
@@ -207,7 +211,7 @@ export default function SignUpForm() {
               <Input
                 id="password"
                 type="password"
-                placeholder="*******"
+                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                 {...register("password")}
               />
               {errors?.password && (
@@ -222,7 +226,7 @@ export default function SignUpForm() {
               <Input
                 id="passwordConfirmation"
                 type="password"
-                placeholder="*******"
+                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                 {...register("passwordConfirmation")}
               />
               {errors?.passwordConfirmation && (
@@ -234,7 +238,7 @@ export default function SignUpForm() {
 
             <div className="space-y-4">
               <div className="flex items-start gap-2">
-                <CircleCheck className="w-5 h-5" />
+                <CircleCheck className="w-8 h-8 text-[var(--primary)]" />
                 <p className="text-sm">
                   By signing up, you agree to our Terms of Services and Privacy
                   Policy
@@ -242,17 +246,19 @@ export default function SignUpForm() {
               </div>
             </div>
 
-            <div className="flex flex-col space-y-1.5"></div>
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Creating account..." : "Create Account"}
             </Button>
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <p className="text-sm">
+      <CardFooter className="flex justify-center items-center">
+        <p className="text-sm text-center">
           Already have an account?{" "}
-          <Link href="/sign-in" className="hover:underline font-medium">
+          <Link
+            href="/sign-in"
+            className="hover:underline font-medium text-[var(--primary)]"
+          >
             Sign in
           </Link>
         </p>
