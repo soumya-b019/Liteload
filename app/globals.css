@@ -182,6 +182,15 @@ body {
     vertical-align: middle;
   }
 
+  .subheading-h4 {
+    font-weight: 400;
+    font-size: 20.97px;
+    line-height: 28.6px;
+    letter-spacing: 0%;
+    text-align: center;
+    vertical-align: middle;
+  }
+
   .para-1 {
     font-weight: 500;
     font-size: 15.75px;
