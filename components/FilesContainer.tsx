@@ -61,10 +61,13 @@ export const FilesContainer = ({ userId }: FileContProps) => {
   }, [userId]);
 
   return (
-    <div className="p-4 border  border-primary/40 rounded-lg">
+    <div className="relative p-4 border border-primary/40 rounded-lg max-h-[700px] overflow-auto">
       <Table>
         <TableHeader>
-          <TableRow className="p-2 bg-primary border-none hover:bg-primary">
+          <TableRow
+            className="p-2 bg-primary border-none hover:bg-primary sticky top-0 z-10 shadow"
+            style={{ position: "sticky", top: "1rem" }}
+          >
             <TableHead className="w-[200px] rounded-l-lg para-3 text-white px-3 text-center">
               Name
             </TableHead>
@@ -83,7 +86,7 @@ export const FilesContainer = ({ userId }: FileContProps) => {
           </TableRow>
         </TableHeader>
 
-        <TableBody>
+        <TableBody className="">
           {files.map((file) => (
             <TableRow
               key={file.id}
@@ -96,7 +99,16 @@ export const FilesContainer = ({ userId }: FileContProps) => {
                   }`}
                 >
                   {file.type === "folder" ? (
-                    <Folder className="min-w-5 min-h-5 w-5 h-5" />
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Folder className="min-w-5 min-h-5 w-5 h-5" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Click to open folder</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   ) : (
                     <>
                       {file.type.startsWith("image") ? (
@@ -106,43 +118,40 @@ export const FilesContainer = ({ userId }: FileContProps) => {
                       )}
                     </>
                   )}
-                  <div>
-                    <div className="font-medium flex items-center gap-2 para-3">
+                  <div className="font-medium flex items-center gap-2 para-3">
+                    {file.type === "folder" ? (
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <span className="truncate max-w-[150px] sm:max-w-[200px] md:max-w-[250px]">
+                              {file.name}
+                            </span>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Click to open folder</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    ) : (
                       <span className="truncate max-w-[150px] sm:max-w-[200px] md:max-w-[250px]">
                         {file.name}
                       </span>
-                      {/* {file.isFolder && (
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Folder className="h-3 w-3 text-default-400" />
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Folder</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      )} */}
-                      {file.type !== "folder" && (
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Link href={file.fileUrl} target="_blank">
-                                <ExternalLink className="h-3 w-3 text-default-400" />
-                              </Link>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Click to view file</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      )}
-                    </div>
-                    <div className="text-xs text-default-500 sm:hidden">
-                      {/* {formatDistanceToNow(new Date(file.createdAt), {
-                        addSuffix: true,
-                      })} */}
-                    </div>
+                    )}
+
+                    {file.type !== "folder" && (
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Link href={file.fileUrl} target="_blank">
+                              <ExternalLink className="h-3 w-3 text-default-400" />
+                            </Link>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Click to view file</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )}
                   </div>
                 </div>
               </TableCell>

@@ -31,7 +31,7 @@ const DashboardPage = () => {
     <main className="py-8 px-6 sm:px-10 md:px-12 lg:px-16 w-full h-full">
       <div className="container mx-auto grid grid-cols-4 gap-6">
         <section
-          className="col-span-1 rounded-lg w-full h-full bg-green-200"
+          className="col-span-1 rounded-lg w-full h-auto"
           style={{ borderColor: "rgba(255, 255, 255, 0.1)" }}
         >
           <Card className="py-6">
