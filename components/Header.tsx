@@ -10,8 +10,6 @@ export const Header = () => {
 
   const isDashboard = pathname.split("/").includes("dashboard");
 
-  console.log(isDashboard);
-
   return (
     <div
       className="sticky top-0 inset-x-0 z- py-4 px-6 sm:px-10 md:px-12 lg:px-16 bg-transparent shadow-md w-full border-b backdrop-blur-md"

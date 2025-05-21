@@ -31,7 +31,6 @@ export async function POST(request: NextRequest) {
       size: imagekit.size || 0,
       type: imagekit.fileType || "image",
       fileUrl: imagekit.url,
-      thumbnailUrl: imagekit.thumbnailUrl || null,
       userId: userId,
       parentId: null, // Root level by default
       isFolder: false,

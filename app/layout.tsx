@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Providers } from "./providers";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Liteload",
@@ -23,6 +24,7 @@ export default function RootLayout({
           <Providers>
             <Header />
             {children}
+            <Toaster />
             <Footer />
           </Providers>
         </body>
