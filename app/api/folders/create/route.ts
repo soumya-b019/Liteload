@@ -44,29 +44,35 @@ export async function POST(request: NextRequest) {
           { status: 401 }
         );
       }
-
-      // create a folder in database
-      const folderData = {
-        id: uuidv4(),
-        name: name.trim(),
-        path: `folders/${userId}/${uuidv4()}`,
-        size: 0,
-        type: "folder",
-        fileUrl: "",
-        userId,
-        parentId,
-        isFolder: true,
-        isStarred: false,
-        isTrash: false,
-      };
-
-      const [newFolder] = await db.insert(files).values(folderData).returning();
-
-      return NextResponse.json({
-        success: true,
-        message: "Folder created successfully",
-        folder: newFolder,
-      });
     }
-  } catch (error) {}
+
+    // create a folder in database
+    const folderData = {
+      id: uuidv4(),
+      name: name.trim(),
+      path: `folders/${userId}/${uuidv4()}`,
+      size: 0,
+      type: "folder",
+      fileUrl: "",
+      userId,
+      parentId,
+      isFolder: true,
+      isStarred: false,
+      isTrash: false,
+    };
+
+    const [newFolder] = await db.insert(files).values(folderData).returning();
+
+    return NextResponse.json({
+      success: true,
+      message: "Folder created successfully",
+      folder: newFolder,
+    });
+  } catch (error) {
+    console.error("Error creating folder:", error);
+    return NextResponse.json(
+      { error: "Failed to create folder" },
+      { status: 500 }
+    );
+  }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -20,6 +20,7 @@ const DashboardPage = () => {
   const { userId } = useAuth();
   const router = useRouter();
   const [currentFolder, setCurrentFolder] = useState<string | null>(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   useEffect(() => {
     if (!userId) {
@@ -27,9 +28,19 @@ const DashboardPage = () => {
     }
   }, [userId]);
 
+  const handleFileUploadSuccess = useCallback(() => {
+    console.log("refresh triggred: ", refreshTrigger);
+
+    setRefreshTrigger((prev) => prev + 1);
+  }, []);
+
+  const handleFolderChange = useCallback((folderId: string | null) => {
+    setCurrentFolder(folderId);
+  }, []);
+
   return (
     <main className="py-8 px-6 sm:px-10 md:px-12 lg:px-16 w-full h-full">
-      <div className="container mx-auto grid grid-cols-4 gap-6">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
         <section
           className="col-span-1 rounded-lg w-full h-auto"
           style={{ borderColor: "rgba(255, 255, 255, 0.1)" }}
@@ -45,6 +56,7 @@ const DashboardPage = () => {
               <FileUploadSection
                 userId={userId}
                 currentFolder={currentFolder}
+                onUploadSuccess={handleFileUploadSuccess}
               />
             </CardContent>
             <CardFooter className="flex justify-center items-center"></CardFooter>
@@ -55,18 +67,22 @@ const DashboardPage = () => {
           className="col-span-3 grid grid-rows-6 gap-6"
           style={{ borderColor: "rgba(255, 255, 255, 0.1)" }}
         >
-          <div
+          {/* <div
             className="row-span-2 rounded-lg bg-amber-200"
             style={{ borderColor: "rgba(255, 255, 255, 0.1)" }}
           >
             sds
-          </div>
+          </div> */}
 
           <div
             className="row-span-6 rounded-lg bg-transparent"
             style={{ borderColor: "rgba(255, 255, 255, 0.1)" }}
           >
-            <FilesContainer userId={userId} />
+            <FilesContainer
+              userId={userId}
+              refreshTrigger={refreshTrigger}
+              onFolderChange={handleFolderChange}
+            />
           </div>
         </section>
       </div>
