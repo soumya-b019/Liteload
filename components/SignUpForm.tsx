@@ -66,12 +66,18 @@ export default function SignUpForm() {
       });
 
       setVerifying(true);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Signup error: ", error);
-      setAuthError(
-        error.errors?.[0]?.message ||
-          "An error occured during signup. Please try again"
-      );
+
+      let errorMessage =
+        "An error occurred during sign-up process. Please try again.";
+
+      if (typeof error === "object" && error !== null && "errors" in error) {
+        const maybeError = error as { errors?: { message?: string }[] };
+        errorMessage = maybeError.errors?.[0]?.message ?? errorMessage;
+      }
+
+      setAuthError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -99,12 +105,18 @@ export default function SignUpForm() {
         console.error("Verification incomplete: ", result);
         setVerificationError("Verification could not be complete");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Verification incomplete: ", error);
-      setVerificationError(
-        error.errors?.[0]?.message ||
-          "An error occured during signup. Please try again"
-      );
+
+      let errorMessage =
+        "An error occurred during sign-up process. Please try again.";
+
+      if (typeof error === "object" && error !== null && "errors" in error) {
+        const maybeError = error as { errors?: { message?: string }[] };
+        errorMessage = maybeError.errors?.[0]?.message ?? errorMessage;
+      }
+
+      setVerificationError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }

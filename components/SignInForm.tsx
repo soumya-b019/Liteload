@@ -58,11 +58,17 @@ export default function SignInForm() {
         console.error("Sign-in incomplete", result);
         setAuthError("Sign-in could not be completed. Please try again.");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Sign-in error", error);
-      setAuthError(
-        error.errors?.[0]?.message || "An error occured during sign in process"
-      );
+
+      let errorMessage = "An error occurred during sign-in process";
+
+      if (typeof error === "object" && error !== null && "errors" in error) {
+        const maybeError = error as { errors?: { message?: string }[] };
+        errorMessage = maybeError.errors?.[0]?.message ?? errorMessage;
+      }
+
+      setAuthError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }

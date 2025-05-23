@@ -40,34 +40,34 @@ export const FilesContainer = ({
     Array<{ id: string; name: string }>
   >([]);
 
-  const fetchFiles = async () => {
-    setLoading(true);
-    try {
-      let url = `/api/files?userId=${userId}`;
-      if (currentFolder) {
-        url += `&parentId=${currentFolder}`;
-      }
-
-      const response = await axios.get(url);
-
-      setFiles(response.data);
-    } catch (error) {
-      console.error(
-        "Error while fetching files: ",
-        +(error instanceof Error ? error.message : String(error))
-      );
-      toast.error("Error loading files", {
-        description: "We couldn't load your files. Please try again later",
-        richColors: true,
-        position: "top-right",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     if (!userId) return;
+
+    const fetchFiles = async () => {
+      setLoading(true);
+      try {
+        let url = `/api/files?userId=${userId}`;
+        if (currentFolder) {
+          url += `&parentId=${currentFolder}`;
+        }
+
+        const response = await axios.get(url);
+
+        setFiles(response.data);
+      } catch (error) {
+        console.error(
+          "Error while fetching files: ",
+          +(error instanceof Error ? error.message : String(error))
+        );
+        toast.error("Error loading files", {
+          description: "We couldn't load your files. Please try again later",
+          richColors: true,
+          position: "top-right",
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
 
     fetchFiles();
   }, [userId, refreshTrigger, currentFolder]);
