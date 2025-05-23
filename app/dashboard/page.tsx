@@ -4,12 +4,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { FileUp } from "lucide-react";
 import { FileUploadSection } from "@/components/FileUploadSection";
 import { useAuth } from "@clerk/nextjs";
@@ -26,11 +24,9 @@ const DashboardPage = () => {
     if (!userId) {
       router.push("/sign-in");
     }
-  }, [userId]);
+  }, [userId, router]);
 
   const handleFileUploadSuccess = useCallback(() => {
-    console.log("refresh triggred: ", refreshTrigger);
-
     setRefreshTrigger((prev) => prev + 1);
   }, []);
 

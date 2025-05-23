@@ -54,9 +54,9 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    if (!file.type.startsWith("image/") && file.type !== "application/pdf") {
+    if (!file.type.startsWith("image/") && file.type !== "application") {
       return NextResponse.json(
-        { error: "Only images and pdf are supported" },
+        { error: "Only images and docs are supported" },
         { status: 401 }
       );
     }
@@ -102,7 +102,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(newFile);
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to upload file" },
+      {
+        error:
+          "Failed to upload file: " +
+          (error instanceof Error ? error.message : String(error)),
+      },
       { status: 401 }
     );
   }

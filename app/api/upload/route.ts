@@ -43,7 +43,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(newFile);
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to save info to database" },
+      {
+        error:
+          "Failed to save info to database: " +
+          (error instanceof Error ? error.message : String(error)),
+      },
       { status: 500 }
     );
   }

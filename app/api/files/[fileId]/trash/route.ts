@@ -47,7 +47,11 @@ export async function PATCH(
     return NextResponse.json(updatedFile);
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to update the file" },
+      {
+        error:
+          "Failed to update the file: " +
+          (error instanceof Error ? error.message : String(error)),
+      },
       { status: 500 }
     );
   }

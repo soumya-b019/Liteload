@@ -19,7 +19,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "./ui/label";
@@ -42,7 +41,6 @@ export const FileUploadSection: React.FC<FileUploadSectionProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // folder creation state
-  const [folderModalOpen, setFolderModalOpen] = useState(false);
   const [folderName, setFolderName] = useState("");
   const [creatingFolder, setCreatingFolder] = useState(false);
   const [dragging, setDragging] = useState(false);

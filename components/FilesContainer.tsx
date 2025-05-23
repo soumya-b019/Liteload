@@ -21,7 +21,6 @@ import Link from "next/link";
 import { FullLoader } from "./FullLoader";
 import { FolderBreadCrumbs } from "./FolderBreadCrumbs";
 import { FileEmptyState } from "./FileEmptyState";
-import { FileCardsContainer } from "./FileCardsContainer";
 
 interface FileContProps {
   userId: string | null | undefined;
@@ -53,7 +52,10 @@ export const FilesContainer = ({
 
       setFiles(response.data);
     } catch (error) {
-      console.error("Error while fetching files");
+      console.error(
+        "Error while fetching files: ",
+        +(error instanceof Error ? error.message : String(error))
+      );
       toast.error("Error loading files", {
         description: "We couldn't load your files. Please try again later",
         richColors: true,

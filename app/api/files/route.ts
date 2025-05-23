@@ -37,7 +37,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(userFiles);
   } catch (error) {
     return NextResponse.json(
-      { error: "Error fetching files" },
+      {
+        error:
+          "Error fetching files: " +
+          (error instanceof Error ? error.message : String(error)),
+      },
       { status: 500 }
     );
   }

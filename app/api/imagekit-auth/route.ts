@@ -20,7 +20,11 @@ export async function GET() {
     return NextResponse.json(authParams);
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to generate authentication parameters for imagekit" },
+      {
+        error:
+          "Failed to generate authentication parameters for imagekit: " +
+          (error instanceof Error ? error.message : String(error)),
+      },
       { status: 500 }
     );
   }
