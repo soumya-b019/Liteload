@@ -111,6 +111,7 @@
 }
 
 body {
+  overflow-x: hidden;
   background: var(--background);
 
   .radial-gradient-1 {
