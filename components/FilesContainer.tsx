@@ -112,20 +112,20 @@ export const FilesContainer = ({
   };
 
   return (
-    <div className="p-4 border border-primary/40 rounded-lg h-[700px] max-h-[700px] overflow-y-auto w-full">
+    <div className="p-4 border border-primary/40 rounded-lg w-full overflow-hidden">
       {loading ? (
         <FullLoader />
       ) : (
-        <div className="flex flex-col gap-6 w-full h-full">
+        <div className="flex flex-col gap-6 w-full h-full overflow-hidden">
           <FolderBreadCrumbs
             folderPath={folderPath}
             navigateToPathFolder={navigateToPathFolder}
           />
 
-          <div className="w-full">
+          <div className="relative w-[600px] max-w-[600px] md:max-w-full md:w-full h-[700px] max-h-[700px] overflow-x-auto overscroll-y-auto">
             {files.length ? (
-              <div className="w-full overflow-x-auto">
-                <Table className="min-w-[600px]">
+              <div className="w-full">
+                <Table className="min-w-full table-fixed">
                   <TableHeader>
                     <TableRow
                       className="p-2 bg-primary border-none hover:bg-primary"
@@ -149,7 +149,7 @@ export const FilesContainer = ({
                     </TableRow>
                   </TableHeader>
 
-                  <TableBody className="">
+                  <TableBody>
                     {files.map((file) => (
                       <TableRow
                         key={file.id}
@@ -226,7 +226,9 @@ export const FilesContainer = ({
                         </TableCell>
 
                         <TableCell className="font-medium text-center">
-                          {file.type}
+                          {file.type.startsWith("folder")
+                            ? file.type
+                            : file.type.split("/")[1]}
                         </TableCell>
 
                         <TableCell>

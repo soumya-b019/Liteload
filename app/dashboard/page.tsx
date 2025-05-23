@@ -40,7 +40,7 @@ const DashboardPage = () => {
 
   return (
     <main className="py-8 px-6 sm:px-10 md:px-12 lg:px-16 w-full h-full">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-4 gap-6">
         <section
           className="col-span-1 rounded-lg w-full h-auto"
           style={{ borderColor: "rgba(255, 255, 255, 0.1)" }}
